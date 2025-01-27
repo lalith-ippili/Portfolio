@@ -1,0 +1,162 @@
+.popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.5s ease-out;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 10%, transparent 10.01%);
+        background-size: 20px 20px;
+        animation: moveBackground 10s linear infinite;
+        z-index: -1;
+    }
+
+    &.success::before {
+        background: radial-gradient(circle, rgba(40, 167, 69, 0.1) 10%, transparent 10.01%);
+    }
+
+    &.error::before {
+        background: radial-gradient(circle, rgba(220, 53, 69, 0.1) 10%, transparent 10.01%);
+    }
+
+    .popup {
+        max-width: 400px;
+        padding: 2rem;
+        border-radius: 15px;
+        color: #fff;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        animation: slideIn 0.6s ease-out, scaleIn 0.6s ease-out;
+        background: linear-gradient(135deg, #28a745, #218838, #1e7e34, #28a745);
+        background-size: 200% 200%;
+        animation: gradientAnimation 5s ease infinite, slideIn 0.6s ease-out, scaleIn 0.6s ease-out;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: textGradientAnimation 5s ease infinite;
+        }
+
+        .close-button {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: #333;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+                transform: scale(1.1);
+                color: #fff;
+            }
+        }
+    }
+
+    &.error .popup {
+        background: linear-gradient(135deg, #dc3545, #c82333, #bd2130, #dc3545);
+        background-size: 200% 200%;
+        animation: gradientAnimation 5s ease infinite, slideIn 0.6s ease-out, scaleIn 0.6s ease-out;
+
+        p {
+            background: linear-gradient(135deg, #ff6f61, #ffcccb, #ff6f61, #ffcccb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: textGradientAnimation 5s ease infinite;
+        }
+
+        .close-button {
+            background: linear-gradient(135deg, #ff6f61, #ffcccb);
+
+            &:hover {
+                background: linear-gradient(135deg, #ffcccb, #ff6f61);
+            }
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes moveBackground {
+    from {
+        transform: translate(0, 0);
+    }
+    to {
+        transform: translate(20px, 20px);
+    }
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes textGradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}

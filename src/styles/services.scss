@@ -1,0 +1,152 @@
+.services {
+  padding   : 1rem 2rem;
+  background: radial-gradient(circle at center, #0d0d0d, #1b1b2f);
+  /* New SkyBlur Dark Gradient */
+  color     : #fff;
+
+  // h2 {
+  //   text-align: center;
+  //   font-size: 3rem;
+  //   margin-bottom: 3rem;
+  //   background: linear-gradient(to right, #0f2027, #203a43, #2c5364); /* Gradient text */
+  //   -webkit-background-clip: text;
+  //   -webkit-text-fill-color: transparent;
+  //   animation: fade-in-title 1.5s ease;
+  // }
+  .gradient-text {
+    display        : flex;
+    flex-direction : column;
+    align-items    : center;
+    margin-bottom  : 3rem;
+    justify-content: center;
+
+    h1,
+    p {
+      background                : linear-gradient(to right, #132a34, #203a43, #2c5364);
+      // -webkit-background-clip: text;
+      // -webkit-text-fill-color: transparent;
+      display                   : inline-block;
+      -webkit-background-clip   : text;
+      font-weight: bold;
+      -webkit-text-fill-color   : transparent;
+      animation                 : fade-in-title 1.5s ease;
+      /* Ensures the gradient applies to the text only */
+    }
+  }
+
+
+  .service-content {
+    display        : flex;
+    flex-wrap      : wrap;
+    justify-content: center;
+    align-items    : center;
+    gap            : 2rem;
+
+    .service-card {
+      padding      : 2rem;
+      border-radius: 20px;
+      width        : 300px;
+      height       : 350px;
+      text-align   : center;
+      position     : relative;
+      transition   : transform 0.5s ease, box-shadow 0.5s ease;
+      overflow     : hidden;
+      cursor       : pointer;
+
+      /* Gradient Backgrounds for Cards */
+      &.gradient-card-0 {
+        background: linear-gradient(to bottom, #141e30, #243b55);
+        /* Volit Dark Gradient */
+        color     : #fff;
+      }
+
+      &.gradient-card-1 {
+        background: linear-gradient(to bottom, #355c7d, #6c5b7b);
+        /* SkyBlur Gradient */
+        color     : #fff;
+      }
+
+      /* Hover Effects */
+      &:hover {
+        transform : scale(1.05) translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        background: linear-gradient(to right, #ff9966, #ff5e62);
+
+        h3 {
+          text-shadow: 0px 4px 10px rgba(255, 255, 255, 0.7);
+        }
+
+        p {
+          color: #f9f9f9;
+        }
+
+        .service-icon {
+          transform: scale(1.2) rotate(-5deg);
+        }
+      }
+
+      /* Icon Styling */
+      .service-icon {
+        width        : 80px;
+        height       : 80px;
+        margin-bottom: 1.5rem;
+        transition   : transform 0.6s ease;
+        filter       : drop-shadow(0 5px 10px rgba(0, 0, 0, 0.5));
+      }
+
+      /* Text Styling */
+      h3 {
+        font-size    : 1.6rem;
+        margin-bottom: 1rem;
+        font-weight  : 600;
+        transition   : text-shadow 0.4s ease;
+      }
+
+      p {
+        font-size  : 1rem;
+        line-height: 1.5;
+        transition : color 0.3s ease;
+      }
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .service-content {
+      flex-direction: column;
+      gap           : 1.5rem;
+
+      .service-card {
+        width : 90%;
+        height: auto;
+      }
+    }
+
+    h2 {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .service-card {
+      padding: 1.5rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+    }
+  }
+
+  /* Animations */
+  @keyframes fade-in-title {
+    0% {
+      opacity  : 0;
+      transform: translateY(-20px);
+    }
+
+    100% {
+      opacity  : 1;
+      transform: translateY(0);
+    }
+  }
+}

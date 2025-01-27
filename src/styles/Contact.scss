@@ -1,0 +1,250 @@
+// Variables
+$primary-color   : #6a11cb;
+$secondary-color : #2575fc;
+$background-color: #0f0c29;
+$text-color      : #ffffff;
+$hover-color     : #ff6b6b;
+$card-colors     : (#ff6f61, #61a5ff, #61ff7e, #ffe861);
+
+// Global Styles
+.contact {
+    padding        : 4rem 2rem;
+    background     : linear-gradient(135deg, $background-color, darken($background-color, 5%));
+    color          : $text-color;
+    text-align     : center;
+    min-height     : 100vh;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    position       : relative;
+    overflow       : hidden;
+
+    // Moving Background Shapes
+    &::before,
+    &::after {
+        content         : "";
+        position        : absolute;
+        width           : 300px;
+        height          : 300px;
+        background      : radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0));
+        animation       : moveShapes 10s linear infinite;
+        border-radius   : 50%;
+        pointer-events  : none;
+    }
+
+    &::before {
+        top   : -50px;
+        left  : -50px;
+        animation-delay: 0s;
+    }
+
+    &::after {
+        bottom: -50px;
+        right : -50px;
+        animation-delay: 5s;
+    }
+
+    .contact-container {
+        max-width: 800px;
+        margin   : 0 auto;
+    }
+
+    .contact-title {
+        font-size              : 3rem;
+        background             : linear-gradient(45deg, $primary-color, $secondary-color);
+        background-clip        : text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation              : textGradient 5s ease infinite;
+        margin-bottom          : 1rem;
+    }
+
+    .contact-subtitle {
+        font-size    : 1.5rem;
+        margin-bottom: 2rem;
+        color        : rgba($text-color, 0.8);
+    }
+
+    .contact-info {
+        display        : flex;
+        justify-content: space-around;
+        flex-wrap      : wrap;
+        gap            : 2rem;
+        margin-bottom  : 2rem;
+
+        .contact-card {
+            background   : linear-gradient(135deg, nth($card-colors, 1), nth($card-colors, 2));
+            padding      : 2rem;
+            border-radius: 20px;
+            border       : none;
+            transition   : transform 0.3s ease, box-shadow 0.3s ease;
+            width        : 200px;
+
+            &:hover {
+                transform   : scale(1.1) rotate(-5deg);
+                box-shadow  : 0 15px 30px rgba($hover-color, 0.4);
+                background  : linear-gradient(135deg, nth($card-colors, 3), nth($card-colors, 4));
+            }
+
+            .contact-icon {
+                margin-bottom: 1rem;
+
+                .icon {
+                    font-size: 2rem;
+                    color    : $text-color;
+                }
+            }
+
+            h3 {
+                font-size    : 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            p {
+                font-size: 1rem;
+                color    : rgba($text-color, 0.8);
+            }
+        }
+    }
+
+    .contact-form {
+        display       : flex;
+        flex-direction: column;
+        gap           : 1.5rem;
+        margin-bottom : 2rem;
+
+        .form-group {
+            position     : relative;
+            display      : flex;
+            align-items  : center;
+            background   : rgba($text-color, 0.1);
+            border-radius: 10px;
+            padding      : 0.5rem 1rem;
+            border       : 2px solid transparent;
+            transition   : all 0.3s ease;
+
+            &:hover {
+                border-color: $hover-color;
+                transform   : scale(1.05);
+            }
+
+            .input-icon {
+                margin-right: 1rem;
+
+                .icon {
+                    font-size: 1.5rem;
+                    color    : $primary-color;
+                }
+            }
+
+            input,
+            textarea {
+                flex      : 1;
+                background: transparent;
+                border    : none;
+                color     : $text-color;
+                font-size : 1rem;
+                padding   : 0.5rem 0;
+
+                &::placeholder {
+                    color: rgba($text-color, 0.6);
+                }
+
+                &:focus {
+                    outline    : none;
+                    background : rgba($text-color, 0.2);
+                    border-radius: 5px;
+                    animation: glow 0.8s infinite alternate;
+                }
+            }
+
+            textarea {
+                resize    : vertical;
+                min-height: 100px;
+            }
+
+            .error {
+                position : absolute;
+                bottom   : -1.5rem;
+                left     : 0;
+                color    : $hover-color;
+                font-size: 0.9rem;
+            }
+        }
+
+        .submit-button {
+            background   : linear-gradient(45deg, $primary-color, $secondary-color);
+            color        : $text-color;
+            border       : none;
+            padding      : 1rem 2rem;
+            border-radius: 20px;
+            font-size    : 1rem;
+            cursor       : pointer;
+            transition   : all 0.3s ease;
+
+            &:hover {
+                transform : scale(1.1) translateY(-5px);
+                box-shadow: 0 10px 20px rgba($hover-color, 0.4);
+            }
+        }
+    }
+
+    .social-links {
+        display        : flex;
+        justify-content: center;
+        gap            : 2rem;
+
+        .social-link {
+            text-decoration: none;
+            color          : $text-color;
+            transition     : transform 0.3s ease;
+
+            .social-icon {
+                font-size: 2rem;
+            }
+
+            &:hover {
+                transform: scale(1.2) rotate(10deg);
+                color    : $hover-color;
+            }
+        }
+    }
+}
+
+// Animations
+@keyframes textGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes moveShapes {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(30px, 30px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 10px $primary-color;
+    }
+    to {
+        box-shadow: 0 0 20px $secondary-color;
+    }
+}

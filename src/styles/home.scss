@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap');
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.home {
+  position       : relative;
+  height         : 95vh;
+  width          : 100vw;
+  overflow       : hidden;
+  display        : flex;
+  justify-content: center;
+  gap            : 4px;
+  align-items    : center;
+  background     : #19033a; // Dark theme background color
+  color          : #e0e0ff;
+
+  .box {
+    position     : absolute;
+    background   : rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    animation    : float linear infinite;
+    z-index      : 1;
+
+    @media (max-width: 768px) {
+      width : 10px; // Smaller boxes on mobile
+      height: 10px;
+    }
+  }
+
+  .big-ball {
+    position      : absolute;
+    width         : 50px;
+    height        : 50px;
+    background    : rgba(255, 255, 255, 0.5);
+    border-radius : 50%;
+    transform     : translate(-50%, -50%);
+    pointer-events: none;
+    z-index       : 999;
+
+    @media (max-width: 768px) {
+      width : 30px; // Smaller ball on mobile
+      height: 30px;
+    }
+  }
+
+  .star {
+    position        : absolute;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius   : 50%;
+    pointer-events  : none;
+    animation       : twinkle ease-in-out infinite;
+    z-index         : 999;
+
+    @media (max-width: 768px) {
+      width : 5px; // Smaller stars on mobile
+      height: 5px;
+    }
+  }
+
+  .content {
+    position  : relative;
+    z-index   : 10;
+    text-align: center;
+
+    .animate-text {
+      font-size              : 4rem;
+      background             : linear-gradient(45deg, #5b42f3, #00ddeb, #ff3696);
+      background-size        : 200% auto;
+      background-clip        : text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation              : textGradient 10s ease infinite;
+
+      @media (max-width: 768px) {
+        font-size: 3rem; // Smaller text on tablets
+      }
+
+      @media (max-width: 480px) {
+        font-size: 2rem; // Smaller text on mobile
+      }
+    }
+
+    .subtitle {
+      font-size              : 2rem;
+      background             : linear-gradient(45deg, #00ddeb, #5b42f3, #ff3696);
+      background-size        : 200% auto;
+      background-clip        : text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation              : textGradient 10s ease infinite, typing 6s steps(20, end) infinite, blink-caret 0.95s step-end infinite;
+      margin-bottom          : 10px;
+      overflow               : hidden; // Required for typing effect
+      white-space            : nowrap; // Required for typing effect
+      border-right           : 2px solid #fff; // Cursor effect
+
+      @media (max-width: 768px) {
+        font-size: 1.5rem; // Smaller subtitle on tablets
+      }
+
+      @media (max-width: 480px) {
+        font-size: 1.2rem; // Smaller subtitle on mobile
+      }
+    }
+
+    /* Gradient text animation */
+    @keyframes textGradient {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Typing animation */
+    @keyframes typing {
+      0% {
+        width: 0; // Start with no text
+      }
+
+      50% {
+        width: 100%; // Fully typed text
+      }
+
+      75% {
+        width: 100%; // Pause for a moment
+      }
+
+      100% {
+        width: 0; // Reset to no text
+      }
+    }
+
+    /* Cursor blink animation */
+    @keyframes blink-caret {
+
+      from,
+      to {
+        border-color: transparent;
+      }
+
+      50% {
+        border-color: #fff;
+      }
+    }
+
+    .gif-container {
+      width    : 100%;
+      max-width: 500px;
+      margin   : 0 auto;
+
+      img {
+        width        : 100%;
+        height       : auto;
+        border-radius: 10px;
+        box-shadow   : 0 4px 15px rgba(0, 0, 0, 0.5);
+
+        @media (max-width: 768px) {
+          max-width: 400px; // Smaller GIF on tablets
+        }
+
+        @media (max-width: 480px) {
+          max-width: 300px; // Smaller GIF on mobile
+        }
+      }
+    }
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    height: 90vh; // Adjust height for tablets
+  }
+
+  @media (max-width: 480px) {
+    height: 100vh;
+    width : 100vw; // Full height for mobile
+  }
+}
