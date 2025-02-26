@@ -134,7 +134,7 @@ const Home = () => {
       {/* Content */}
       <div className="content">
         <h1 className="animate-text">Lalith Kumar</h1>
-        <p className="subtitle">Frontend Developer</p>
+        <p className="subtitle">Software Developer</p>
 
         <div className="gif-container">
           <img

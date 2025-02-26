@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaSchool, FaHotel, FaRobot } from 'react-icons/fa';
+import { FaSchool, FaHotel, FaRobot, FaBolt } from 'react-icons/fa';
 import '../styles/about.scss';
 
 const About = () => {
@@ -53,7 +53,21 @@ const About = () => {
         'Built using HTML5, Tailwind CSS, JavaScript, React.js, Django, SQL, and Recharts.',
       ],
       icon: <FaRobot />,
-    }
+    },
+    {
+      title: 'Energy Monitoring',
+      description: 'A project that analyzes energy consumption room-wise, automatically controls power, and sets alarms for critical conditions.',
+      points: [
+        'Room-wise energy consumption tracking.',
+        'Automatic power on/off based on usage patterns.',
+        'Alarm system for unusual energy spikes or faults.',
+        'Analytics dashboard with visual charts.',
+        'Interactive control panel for manual adjustments.',
+        'Historical data logging for usage trends.',
+        'Built using HTML, TypeScript, React Native, NativeWind, Formik, Charts, and Djongo.',
+      ],
+      icon: <FaBolt />,
+    },
 
   ];
 
