@@ -7,6 +7,7 @@ import Services from './components/Services';
 import Footer from './components/Footer';
 import './styles/main.scss';
 import Contact from './components/Contact';
+import WhatsAppButton from './components/WhatsAppButton';
 
 const App = () => {
   return (
@@ -16,9 +17,9 @@ const App = () => {
       <About />
       <Skills />
       <Services />
-      <Contact/>
+      <Contact />
       <Footer />
-     
+      <WhatsAppButton />
     </div>
   );
 };

@@ -1,9 +1,10 @@
 .about {
-  padding   : 1rem 2rem;
+  padding   : 1rem 1rem;
   background: linear-gradient(135deg, #0a0a1a, #1a0a2a);
   /* Dark Theme Gradient */
   color     : #fff;
-  min-height: 100vh;
+  min-height: 100%;
+
   position  : relative;
   overflow  : hidden;
   /* Prevents overflow of moving shapes */
@@ -61,10 +62,14 @@
   }
 
   .experience {
-    display              : grid;
+    display              : flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap                  : 2rem;
     padding              : 1rem;
+    
     overflow-y           : auto;
     max-height           : 80vh;
 
@@ -88,11 +93,12 @@
     transition     : box-shadow 0.3s ease, transform 0.3s ease;
     display        : flex;
     flex-direction : column;
+    
     justify-content: space-between;
     padding        : 2rem;
     color          : #ecf0f1;
     min-width      : 280px;
-    max-width      : 350px;
+    max-width      : 340px;
     height         : 400px;
     overflow       : scroll;
 

@@ -8,7 +8,9 @@ const Skills = () => {
     { name: 'SCSS', icon: 'https://img.icons8.com/color/96/000000/sass.png' },
     { name: 'Tailwind', icon: 'https://img.icons8.com/color/96/000000/tailwindcss.png' },
     { name: 'JavaScript', icon: 'https://img.icons8.com/color/96/000000/javascript.png' },
+    { name: 'TypeScript', icon: 'https://img.icons8.com/color/96/000000/typescript.png' },
     { name: 'ReactJS', icon: 'https://img.icons8.com/color/96/000000/react-native.png' },
+    { name: 'Next.js', icon: 'https://img.icons8.com/color/96/000000/nextjs.png' },
     { name: 'Bootstrap', icon: 'https://img.icons8.com/color/96/000000/bootstrap.png' },
     { name: 'Material UI', icon: 'https://img.icons8.com/color/96/000000/material-ui.png' },
     { name: 'Redux', icon: 'https://img.icons8.com/color/96/000000/redux.png' },
@@ -16,7 +18,7 @@ const Skills = () => {
     { name: 'NodeJS', icon: 'https://img.icons8.com/color/96/000000/nodejs.png' },
     { name: 'MongoDB', icon: 'https://img.icons8.com/color/96/000000/mongodb.png' },
     { name: 'SQL', icon: 'https://img.icons8.com/color/96/000000/sql.png' },
-  ];
+  ]
 
   const skillRefs = useRef([]);
   const sectionRef = useRef(null);
@@ -47,9 +49,8 @@ const Skills = () => {
         );
 
         if (distance < 100) {
-          skill.style.transform = `translate(${(clientX - skillCenterX) * 0.2}px, ${
-            (clientY - skillCenterY) * 0.2
-          }px)`;
+          skill.style.transform = `translate(${(clientX - skillCenterX) * 0.2}px, ${(clientY - skillCenterY) * 0.2
+            }px)`;
         } else {
           skill.style.transform = 'translate(0, 0)';
         }

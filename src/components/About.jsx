@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaSchool, FaHotel, FaRobot, FaBolt } from 'react-icons/fa';
+import { FaSchool, FaHotel, FaRobot, FaBolt, FaStore, FaCar, FaIceCream } from 'react-icons/fa';
 import '../styles/about.scss';
 
 const About = () => {
@@ -23,7 +23,6 @@ const About = () => {
         'Built using HTML5, SASS, JavaScript, React.js, Redux, Recharts, Formik, Django, and SQL.',
       ],
       icon: <FaSchool />,
-
     },
     {
       title: 'Hostel Management System (HMS)',
@@ -38,7 +37,6 @@ const About = () => {
         'Built using HTML5, CSS, JavaScript, React.js, Django, SQL, Fetch, Formik, and Recharts.',
       ],
       icon: <FaHotel />,
-
     },
     {
       title: 'AI Monitoring',
@@ -68,7 +66,45 @@ const About = () => {
       ],
       icon: <FaBolt />,
     },
-
+    {
+      title: 'Rajasab',
+      description: 'An e-commerce website for clothes where users can visit the store directly after ordering. It includes dashboards for users, tailors, and admin with various features.',
+      points: [
+        'Order tracking and management.',
+        'Dashboards for customers, tailors, and admin.',
+        'Payment system integration.',
+        'Downloadable invoices, PDFs, and Excel sheets.',
+        'Built using HTML, Tailwind CSS, React.js, Formik, Redux, Node.js, and PostgreSQL.',
+      ],
+      icon: <FaStore />,
+    },
+    {
+      title: 'Sparekart Car',
+      description: 'An e-commerce platform for car parts with various features.',
+      points: [
+        'Home and feature pages for product listings.',
+        'Wishlist functionality for saving favorite items.',
+        'Order details and tracking.',
+        'Recommended products section.',
+        'Secure checkout and payment integration.',
+        'Built using HTML, Tailwind CSS, TypeScript, Next.js, Formik, Axios, Node.js, and SQL.',
+      ],
+      icon: <FaCar />,
+    },
+    {
+      title: 'Cream Vault',
+      description: 'A fully-featured e-commerce mobile app for iOS and Android.',
+      points: [
+        'Home and feature pages for product discovery.',
+        'Wishlist and order tracking functionalities.',
+        'Scheduled orders and real-time payment processing.',
+        'Order history and dashboard for users.',
+        'Maps integration for delivery tracking.',
+        'Analytics dashboard for business insights.',
+        'Built using HTML, NativeWind, React Native, Formik, Redux, Node.js, and MongoDB.',
+      ],
+      icon: <FaIceCream />,
+    },
   ];
 
   return (
@@ -88,9 +124,6 @@ const About = () => {
               stiffness: 250,
               damping: 25,
               delay: index * 0.2,
-            }}
-            style={{
-              background: project.gradient,
             }}
           >
             <div className="card-background-shape"></div>

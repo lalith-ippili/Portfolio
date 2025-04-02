@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import emailjs from 'emailjs-com';
 import Popup from '../components/Popup';
+import { FaSquareGitlab } from "react-icons/fa6";
 import '../styles/Contact.scss';
 import {
   FaEnvelope,
@@ -201,6 +202,15 @@ const Contact = () => {
             className="social-link"
           >
             <FaGithub className="social-icon" />
+          </a>
+
+          <a
+            href="https://gitlab.com/lalith-ippili"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-link"
+          >
+            <FaSquareGitlab className="social-icon" />
           </a>
         </div>
       </div>
