@@ -79,6 +79,78 @@
     }
   }
 
+  .floating-element {
+    position       : absolute;
+    font-size      : 2rem;
+    font-weight    : bold;
+    backdrop-filter: blur(10px);
+    border         : 2px solid rgba(255, 255, 255, 0.1);
+    border-radius  : 50%;
+    width          : 50px;
+    height         : 50px;
+    display        : flex;
+    align-items    : center;
+    justify-content : center;
+    box-shadow     : 0 4px 20px rgba(0, 0, 0, 0.3);
+    cursor         : pointer;
+    transition     : all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index        : 10;
+    background     : rgba(255, 255, 255, 0.1);
+    text-shadow    : 0 2px 4px rgba(0, 0, 0, 0.3);
+
+    &:hover {
+      transform  : scale(1.2) rotate(180deg) !important;
+      box-shadow : 0 8px 30px rgba(0, 0, 0, 0.4);
+      background : rgba(255, 255, 255, 0.2);
+      border     : 2px solid rgba(255, 255, 255, 0.3);
+      animation  : pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      }
+      50% {
+        box-shadow: 0 8px 40px rgba(91, 66, 243, 0.6);
+      }
+      100% {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      }
+    }
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+      width    : 40px;
+      height   : 40px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.2rem;
+      width    : 35px;
+      height   : 35px;
+    }
+  }
+
+  .interactive-particle {
+    position      : absolute;
+    background    : radial-gradient(circle, rgba(91, 66, 243, 0.6), rgba(0, 221, 235, 0.3));
+    border-radius : 50%;
+    pointer-events: none;
+    z-index       : 5;
+    animation     : particleGlow 3s ease-in-out infinite alternate;
+
+    @keyframes particleGlow {
+      0% {
+        transform: scale(1);
+        opacity  : 0.3;
+      }
+      100% {
+        transform: scale(1.5);
+        opacity  : 0.8;
+      }
+    }
+  }
+
   .content {
     position  : relative;
     z-index   : 10;
@@ -92,6 +164,17 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation              : textGradient 10s ease infinite;
+      margin-bottom          : 20px;
+
+      .letter {
+        display: inline-block;
+        transition: all 0.3s ease;
+
+        &:hover {
+          transform: translateY(-10px);
+          text-shadow: 0 10px 20px rgba(91, 66, 243, 0.5);
+        }
+      }
 
       @media (max-width: 768px) {
         font-size: 3rem; // Smaller text on tablets
@@ -102,6 +185,14 @@
       }
     }
 
+    .subtitle-container {
+      height: 60px; // Fixed height to prevent jumping
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
     .subtitle {
       font-size              : 2rem;
       background             : linear-gradient(45deg, #00ddeb, #5b42f3, #ff3696);
@@ -109,19 +200,26 @@
       background-clip        : text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation              : textGradient 10s ease infinite, typing 6s steps(20, end) infinite, blink-caret 0.95s step-end infinite;
-      margin-bottom          : 10px;
-      overflow               : hidden; // Required for typing effect
-      white-space            : nowrap; // Required for typing effect
-      border-right           : 2px solid #fff; // Cursor effect
+      animation              : textGradient 10s ease infinite;
+      margin                 : 0;
+      display                : inline-block;
 
       @media (max-width: 768px) {
-        font-size: 1.5rem; // Smaller subtitle on tablets
+        font-size: 1.5rem;
       }
 
       @media (max-width: 480px) {
-        font-size: 1.2rem; // Smaller subtitle on mobile
+        font-size: 1.2rem;
       }
+    }
+
+    .cursor {
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
     }
 
     /* Gradient text animation */
@@ -139,35 +237,50 @@
       }
     }
 
-    /* Typing animation */
-    @keyframes typing {
-      0% {
-        width: 0; // Start with no text
+    .hire-me-btn {
+      background     : linear-gradient(45deg, #5b42f3, #00ddeb);
+      color          : white;
+      border         : none;
+      padding        : 15px 30px;
+      font-size      : 1.2rem;
+      margin-bottom  : 15px;
+      border-radius  : 25px;
+      cursor         : pointer;
+      margin-top     : 20px;
+      transition     : all 0.3s ease;
+      box-shadow     : 0 4px 15px rgba(91, 66, 243, 0.4);
+      position       : relative;
+      overflow       : hidden;
+
+      &::before {
+        content        : '';
+        position       : absolute;
+        top            : 0;
+        left           : -100%;
+        width          : 100%;
+        height         : 100%;
+        background     : linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition     : left 0.5s;
       }
 
-      50% {
-        width: 100%; // Fully typed text
+      &:hover::before {
+        left: 100%;
       }
 
-      75% {
-        width: 100%; // Pause for a moment
+      &:hover {
+        transform : translateY(-5px) scale(1.05);
+        box-shadow: 0 8px 25px rgba(91, 66, 243, 0.6);
+        background: linear-gradient(45deg, #00ddeb, #5b42f3);
       }
 
-      100% {
-        width: 0; // Reset to no text
-      }
-    }
-
-    /* Cursor blink animation */
-    @keyframes blink-caret {
-
-      from,
-      to {
-        border-color: transparent;
+      @media (max-width: 768px) {
+        font-size: 1rem;
+        padding  : 12px 25px;
       }
 
-      50% {
-        border-color: #fff;
+      @media (max-width: 480px) {
+        font-size: 0.9rem;
+        padding  : 10px 20px;
       }
     }
 
@@ -176,18 +289,18 @@
       max-width: 500px;
       margin   : 0 auto;
 
-      img {
+      .developer-gif {
         width        : 100%;
         height       : auto;
         border-radius: 10px;
         box-shadow   : 0 4px 15px rgba(0, 0, 0, 0.5);
 
         @media (max-width: 768px) {
-          max-width: 400px; // Smaller GIF on tablets
+          max-width: 400px; // Smaller on tablets
         }
 
         @media (max-width: 480px) {
-          max-width: 300px; // Smaller GIF on mobile
+          max-width: 300px; // Smaller on mobile
         }
       }
     }

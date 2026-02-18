@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import emailjs from 'emailjs-com';
@@ -69,7 +70,14 @@ const Contact = () => {
   });
 
   return (
-    <section id="Contact" className="contact">
+    <motion.section 
+      id="Contact" 
+      className="contact"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+      viewport={{ once: true }}
+    >
       <div className="moving-background"></div>
       <div className="contact-container">
         <h2 className="contact-title">Get in Touch</h2>
@@ -171,9 +179,15 @@ const Contact = () => {
             ) : null}
           </div>
 
-          <button type="submit" className="submit-button">
+          <motion.button 
+            type="submit" 
+            className="submit-button"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: 'spring', stiffness: 300 }}
+          >
             Send Message
-          </button>
+          </motion.button>
         </form>
 
         {/* Show Popup */}
@@ -214,7 +228,7 @@ const Contact = () => {
           </a>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

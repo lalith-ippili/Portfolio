@@ -211,6 +211,54 @@ $card-colors     : (#ff6f61, #61a5ff, #61ff7e, #ffe861);
     }
 }
 
+// Responsive Design
+@media (max-width: 768px) {
+    .contact {
+        padding: 2rem 1rem;
+
+        .contact-title {
+            font-size: 2.5rem;
+        }
+
+        .contact-subtitle {
+            font-size: 1.2rem;
+        }
+
+        .contact-info {
+            flex-direction: column;
+            align-items: center;
+
+            .contact-card {
+                width: 90%;
+            }
+        }
+
+        .contact-form {
+            .form-group {
+                margin-bottom: 1rem;
+            }
+        }
+
+        .social-links {
+            gap: 1rem;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .contact {
+        .contact-title {
+            font-size: 2rem;
+        }
+
+        .contact-info {
+            .contact-card {
+                padding: 1.5rem;
+            }
+        }
+    }
+}
+
 // Animations
 @keyframes textGradient {
     0% {

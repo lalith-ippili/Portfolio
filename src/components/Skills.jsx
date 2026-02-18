@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import '../styles/skills.scss';
 
 const Skills = () => {
@@ -66,7 +67,15 @@ const Skills = () => {
   }, []);
 
   return (
-    <section id="skills" className="skills" ref={sectionRef}>
+    <motion.section 
+      id="skills" 
+      className="skills" 
+      ref={sectionRef}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+      viewport={{ once: true }}
+    >
       {/* Background Shapes */}
       <div className="background-shapes">
         {[...Array(10)].map((_, i) => (
@@ -98,7 +107,7 @@ const Skills = () => {
           </div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 };
 

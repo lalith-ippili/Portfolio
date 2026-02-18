@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import '../styles/services.scss';
 
 const Services = () => {
@@ -36,7 +37,14 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="services">
+    <motion.section 
+      id="services" 
+      className="services"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+      viewport={{ once: true }}
+    >
       <div className='gradient-text'>
         <h1>Services</h1>
         <p> Websites & Apps</p>
@@ -44,7 +52,13 @@ const Services = () => {
       </div>
       <div className="service-content">
         {services.map((service, index) => (
-          <div key={index} className={`service-card gradient-card-${index % 2}`}>
+          <motion.div 
+            key={index} 
+            className={`service-card gradient-card-${index % 2}`}
+            whileHover={{ scale: 1.05, rotateY: 5 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: 'spring', stiffness: 300 }}
+          >
             {/* Ensure the image is rendered with proper size */}
             <img
               src={service.icon}
@@ -54,10 +68,10 @@ const Services = () => {
             />
             <h3>{service.title}</h3>
             <p>{service.description}</p>
-          </div>
+          </motion.div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 };
 
