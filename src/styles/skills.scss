@@ -1,127 +1,292 @@
 .skills {
   position: relative;
-  padding: 4rem 1rem; /* Reduced padding for mobile */
-  background: linear-gradient(135deg, #0f0c29, #302b63); /* Dark gradient background */
-  color: #fff;
+  padding: 6rem 2rem;
+  background: radial-gradient(ellipse at 30% 0%, rgba(91, 66, 243, 0.12) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 100%, rgba(0, 221, 235, 0.08) 0%, transparent 60%),
+              linear-gradient(180deg, #080818, #0a0a20, #080818);
   overflow: hidden;
+  color: #fff;
 
-  h2 {
-    text-align: center;
-    font-size: 2rem; /* Smaller font size for mobile */
-    margin-bottom: 2rem;
-    background: linear-gradient(to right, #ff7e5f, #feb47b); /* Gradient for text */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: text-glow 3s infinite alternate;
+  // Background Orbs
+  .skills-orbs {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
 
-    @media (min-width: 768px) {
-      font-size: 2.5rem; /* Larger font size for desktop */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: orbFloat 12s ease-in-out infinite;
+
+      &.orb-1 {
+        width: 400px; height: 400px;
+        background: rgba(91, 66, 243, 0.12);
+        top: -100px; left: -100px;
+      }
+      &.orb-2 {
+        width: 350px; height: 350px;
+        background: rgba(0, 221, 235, 0.08);
+        bottom: -80px; right: -80px;
+        animation-delay: -4s;
+      }
+      &.orb-3 {
+        width: 250px; height: 250px;
+        background: rgba(255, 54, 150, 0.07);
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        animation-delay: -8s;
+      }
     }
   }
 
-  .skills-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
+  @keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -20px) scale(1.05); }
+    66% { transform: translate(-20px, 30px) scale(0.95); }
+  }
 
-    .skill {
+  .skills-title {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    background: linear-gradient(90deg, #5b42f3, #00ddeb, #ff3696);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textShimmer 5s linear infinite;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  @keyframes textShimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+
+  .skills-subtitle {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: rgba(200, 195, 255, 0.55);
+    font-size: 1rem;
+    margin-bottom: 3rem;
+    letter-spacing: 0.02em;
+  }
+
+  // Category Buttons
+  .skills-categories {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    Gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+    gap: 10px;
+
+    .cat-btn {
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      color: rgba(200, 195, 255, 0.7);
+      padding: 9px 22px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 500;
+      font-family: 'Outfit', sans-serif;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      letter-spacing: 0.02em;
+
+      &:hover {
+        border-color: var(--cat-color, #5b42f3);
+        color: #fff;
+        box-shadow: 0 0 15px color-mix(in srgb, var(--cat-color, #5b42f3) 50%, transparent);
+      }
+
+      &.active {
+        background: linear-gradient(135deg, var(--cat-color, #5b42f3), color-mix(in srgb, var(--cat-color, #5b42f3) 60%, #00ddeb));
+        border-color: transparent;
+        color: #fff;
+        box-shadow: 0 4px 20px color-mix(in srgb, var(--cat-color, #5b42f3) 50%, transparent);
+      }
+    }
+  }
+
+  // Skills Grid
+  .skills-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 1.5rem;
+    max-width: 1500px;
+    margin: 0 auto;
+
+    @media (max-width: 600px) {
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 1rem;
+    }
+  }
+
+  // 3D Flip Card
+  .skill-card-wrap {
+    position: relative;
+    height: 155px;
+    perspective: 1000px;
+    cursor: pointer;
+
+    &:hover .card-glow-effect {
+      opacity: 1;
+    }
+
+    &.flipped .skill-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-glow-effect {
+      position: absolute;
+      inset: -2px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--skill-color, #5b42f3), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 0;
+      filter: blur(6px);
+    }
+
+    .skill-card-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.6, 1);
+      transform-style: preserve-3d;
+    }
+
+    .skill-card-front,
+    .skill-card-back {
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      backface-visibility: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)); /* Glassmorphism effect */
-      padding: 1.5rem;
-      border-radius: 10px;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
-      cursor: pointer;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 10px;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: border-color 0.3s ease;
 
       &:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        border-image: linear-gradient(to right, #ff7e5f, #feb47b);
-        border-image-slice: 1;
+        border-color: rgba(var(--skill-color, #5b42f3), 0.4);
+      }
+    }
+
+    .skill-card-front {
+      .skill-icon-wrap {
+        width: 55px;
+        height: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.05);
+        transition: all 0.3s ease;
+
+        &:hover { background: rgba(255,255,255,0.1); }
       }
 
       .skill-icon {
-        width: 50px; /* Smaller icon size for mobile */
-        height: 50px;
-        margin-bottom: 0.5rem;
-        animation: float 4s ease-in-out infinite;
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+        filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
 
-        @media (min-width: 768px) {
-          width: 70px; /* Larger icon size for desktop */
-          height: 70px;
-        }
+        &:hover { transform: scale(1.12) rotate(5deg); }
       }
 
-      span {
-        font-size: 1rem; /* Smaller font size for mobile */
-        color: #fff;
+      .skill-name {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #e0deff;
         text-align: center;
+        line-height: 1.2;
+      }
 
-        @media (min-width: 768px) {
-          font-size: 1.2rem; /* Larger font size for desktop */
+      .skill-cat {
+        font-size: 0.65rem;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        opacity: 0.8;
+      }
+    }
+
+    .skill-card-back {
+      transform: rotateY(180deg);
+      background: rgba(10, 8, 30, 0.9);
+      gap: 6px;
+
+      .back-name {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #e0deff;
+        text-align: center;
+      }
+
+      .skill-level-ring {
+        position: relative;
+        width: 70px;
+        height: 70px;
+
+        svg {
+          width: 100%;
+          height: 100%;
+          transform: rotate(-90deg);
+
+          .ring-bg {
+            fill: none;
+            stroke: rgba(255,255,255,0.08);
+            stroke-width: 6;
+          }
+
+          .ring-fill {
+            fill: none;
+            stroke-width: 6;
+            stroke-linecap: round;
+            transition: stroke-dasharray 0.6s ease;
+            filter: drop-shadow(0 0 4px currentColor);
+          }
+        }
+
+        .ring-text {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 0.9rem;
+          font-weight: 800;
+          color: #fff;
         }
       }
-    }
-  }
 
-  /* Moving Background Shapes */
-  .background-shapes {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 0;
-
-    .shape {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: linear-gradient(to right, #ff7e5f, #feb47b);
-      border-radius: 50%;
-      animation: move-shape 10s linear infinite;
-
-      &:nth-child(odd) {
-        background: linear-gradient(to right, #00bfff, #00ff7f);
+      .back-label {
+        font-size: 0.65rem;
+        color: rgba(200,195,255,0.5);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
-
-      &:nth-child(even) {
-        background: linear-gradient(to right, #ff7e5f, #feb47b);
-      }
-    }
-  }
-
-  /* Keyframes for Animations */
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  @keyframes move-shape {
-    0% {
-      transform: translateY(-100%) translateX(-50%);
-    }
-    100% {
-      transform: translateY(100%) translateX(50%);
-    }
-  }
-
-  @keyframes text-glow {
-    0% {
-      opacity: 0.8;
-    }
-    100% {
-      opacity: 1;
     }
   }
 }

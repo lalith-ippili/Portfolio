@@ -55,9 +55,12 @@ const Services = () => {
           <motion.div 
             key={index} 
             className={`service-card gradient-card-${index % 2}`}
-            whileHover={{ scale: 1.05, rotateY: 5 }}
+            initial={{ opacity: 0, scale: 0.8, y: 50, rotateY: 15 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0, rotateY: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            whileHover={{ scale: 1.05, rotateY: 5, rotateX: -5 }}
             whileTap={{ scale: 0.95 }}
-            transition={{ type: 'spring', stiffness: 300 }}
+            transition={{ type: 'spring', stiffness: 200, delay: index * 0.1, duration: 0.8 }}
           >
             {/* Ensure the image is rendered with proper size */}
             <img

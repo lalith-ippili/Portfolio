@@ -1,90 +1,124 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/navbar.scss';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import Logo from '../assets/logo.png';
+import logo1 from '../assets/logo1.png';
 
 const Navbar = () => {
-  const [boxes, setBoxes] = useState([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
-  // Create moving boxes
   useEffect(() => {
-    const createBoxes = () => {
-      const newBoxes = [];
-      for (let i = 0; i < 20; i++) {
-        const box = {
-          id: i,
-          x: Math.random() * window.innerWidth,
-          y: Math.random() * 100,
-          size: Math.random() * 10 + 5,
-          speed: Math.random() * 1 + 0.5,
-        };
-        newBoxes.push(box);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+
+      // Detect active section
+      const sections = ['home', 'about', 'skills', 'services', 'projects', 'Contact'];
+      for (const section of sections) {
+        const el = document.getElementById(section);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 80 && rect.bottom >= 80) {
+            setActiveSection(section);
+            break;
+          }
+        }
       }
-      setBoxes(newBoxes);
     };
-
-    createBoxes();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Animate boxes
-  useEffect(() => {
-    const moveBoxes = () => {
-      setBoxes(prevBoxes =>
-        prevBoxes.map(box => ({
-          ...box,
-          y: box.y + box.speed > 100 ? 0 : box.y + box.speed,
-        }))
-      );
-    };
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
-    const interval = setInterval(moveBoxes, 50);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Toggle mobile menu
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  const navItems = [
+    { label: 'Home', href: '#home', id: 'home' },
+    { label: 'Experience', href: '#about', id: 'about' },
+    { label: 'Skills', href: '#skills', id: 'skills' },
+    { label: 'Services', href: '#services', id: 'services' },
+    { label: 'Projects', href: '#projects', id: 'projects' },
+    { label: 'Contact', href: '#Contact', id: 'Contact' },
+  ];
 
   return (
-    <nav className="navbar">
-      {/* Moving Boxes */}
-      {boxes.map(box => (
-        <div
-          key={box.id}
-          className="box"
-          style={{
-            left: `${box.x}px`,
-            top: `${box.y}px`,
-            width: `${box.size}px`,
-            height: `${box.size}px`,
-            animationDuration: `${box.speed}s`,
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+      <div className="navbar-inner">
+        {/* logo */}
+        <a href="#home" className="logo" onClick={() => setIsMobileMenuOpen(false)}>
+          <div className="logo-ring">
+            <img src={logo1} className="logo_image" alt="Ippili Lalith Kumar" />
+          </div>
+          <div className="logo-text">
+            <span className="logo-name">Lalith Kumar</span>
+            <span className="logo-tag">Software Developer</span>
+          </div>
+        </a>
+
+        {/* Desktop Nav */}
+        <ul className="nav-links">
+          {navItems.map(item => (
+            <li key={item.id}>
+              <a
+                href={item.href}
+                className={activeSection === item.id ? 'active' : ''}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item.label}
+                <span className="nav-indicator" />
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        {/* Hire Me CTA */}
+        <a
+          href="#Contact"
+          className="nav-cta"
+          onClick={e => {
+            e.preventDefault();
+            document.getElementById('Contact')?.scrollIntoView({ behavior: 'smooth' });
+            setIsMobileMenuOpen(false);
           }}
-        />
-      ))}
+        >
+          Hire Me
+        </a>
 
-
-      <div className="logo">
-        <a href='#home' onClick={toggleMobileMenu}>      <img src={Logo} className='logo_image' /> </a>
-
-        {/* <span>Lalith Kumar</span> */}
+        {/* Hamburger */}
+        <button
+          className="hamburger"
+          onClick={toggleMobileMenu}
+          aria-label="Toggle menu"
+        >
+          {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+        </button>
       </div>
 
-      {/* Hamburger Icon */}
-      <div className="hamburger" onClick={toggleMobileMenu}>
-        {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+      {/* Mobile Menu */}
+      <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
+        <div className="mobile-menu-inner">
+          {navItems.map(item => (
+            <a
+              key={item.id}
+              href={item.href}
+              className={`mobile-link ${activeSection === item.id ? 'active' : ''}`}
+              onClick={toggleMobileMenu}
+            >
+              {item.label}
+            </a>
+          ))}
+          <a
+            href="#Contact"
+            className="mobile-cta"
+            onClick={e => {
+              e.preventDefault();
+              document.getElementById('Contact')?.scrollIntoView({ behavior: 'smooth' });
+              toggleMobileMenu();
+            }}
+          >
+            Hire Me
+          </a>
+        </div>
       </div>
-
-      {/* Navigation Links */}
-      <ul className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
-        <li><a href="#home" onClick={toggleMobileMenu}>Home</a></li>
-        <li><a href="#about" onClick={toggleMobileMenu}>About</a></li>
-        <li><a href="#skills" onClick={toggleMobileMenu}>Skills</a></li>
-        <li><a href="#services" onClick={toggleMobileMenu}>Services</a></li>
-        <li><a href="#projects" onClick={toggleMobileMenu}>Projects</a></li>
-        <li><a href="#Contact" onClick={toggleMobileMenu}>Contact</a></li>
-      </ul>
     </nav>
   );
 };
