@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/navbar.scss';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import Logo from '../assets/logo1.jpg'
+import Logo from '../assets/logo.png';
 
 const Navbar = () => {
   const [boxes, setBoxes] = useState([]);
