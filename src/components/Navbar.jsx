@@ -41,7 +41,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${isMobileMenuOpen ? 'mobile-menu-active' : ''}`}>
       <div className="navbar-inner">
         {/* logo */}
         <a href="#home" className="logo" onClick={() => setIsMobileMenuOpen(false)}>
@@ -93,9 +93,14 @@ const Navbar = () => {
         </button>
       </div>
 
+      <div className={`mobile-menu-backdrop ${isMobileMenuOpen ? 'active' : ''}`} onClick={toggleMobileMenu} aria-hidden={isMobileMenuOpen ? 'false' : 'true'} />
+
       {/* Mobile Menu */}
-      <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
+      <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`} role="dialog" aria-modal="true" aria-label="Mobile navigation">
         <div className="mobile-menu-inner">
+          <button className="mobile-close-btn" type="button" onClick={toggleMobileMenu} aria-label="Close menu">
+            <FaTimes />
+          </button>
           {navItems.map(item => (
             <a
               key={item.id}

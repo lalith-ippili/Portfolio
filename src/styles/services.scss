@@ -7,6 +7,14 @@
   overflow: hidden;
   color: #fff;
 
+  @media (max-width: 768px) {
+    padding: 4rem 1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 3rem 0.5rem;
+  }
+
   .services-orb {
     position: absolute;
     border-radius: 50%;
@@ -124,7 +132,8 @@
 
       .service-icon {
         width: 80px;
-        height: 80px;
+        max-width: 100%;
+        height: auto;
         margin: 0 auto 1.2rem;
         display: block;
         object-fit: contain;

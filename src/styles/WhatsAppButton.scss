@@ -17,6 +17,13 @@
                orbit-spin 10s infinite linear;
     overflow: hidden;
     z-index: 1000;
+
+    @media (max-width: 480px) {
+      bottom: 15px;
+      right: 15px;
+      width: 45px;
+      height: 45px;
+    }
 }
 
 /* Rotating Gradient Background with More Colors */

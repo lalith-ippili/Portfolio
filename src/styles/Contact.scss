@@ -9,6 +9,14 @@
     linear-gradient(160deg, #06061a 0%, #0d0928 50%, #080818 100%);
   color: #fff;
 
+  @media (max-width: 768px) {
+    padding: 4rem 1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 3rem 0.5rem;
+  }
+
   // ── Animated orb background ─────────────────────────────────────────────
   .moving-background {
     position: absolute;
@@ -89,6 +97,11 @@
 
     @media (max-width: 700px) {
       grid-template-columns: 1fr;
+    }
+
+    @media (max-width: 480px) {
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
   }
 
@@ -185,7 +198,14 @@
     gap: 1.2rem;
     box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(91,66,243,0.06);
 
-    @media (max-width: 600px) { padding: 1.5rem; }
+    @media (max-width: 600px) { 
+      padding: 1.5rem; 
+    }
+
+    @media (max-width: 480px) {
+      padding: 1rem;
+      border-radius: 16px;
+    }
 
     .form-group {
       position: relative;
@@ -290,6 +310,11 @@
     justify-content: center;
     gap: 1rem;
     margin-top: 2.5rem;
+
+    @media (max-width: 480px) {
+      gap: 0.8rem;
+      margin-top: 2rem;
+    }
 
     .social-link {
       width: 50px; height: 50px;

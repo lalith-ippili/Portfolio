@@ -104,6 +104,10 @@
     padding: 80px 1.5rem 3rem;
   }
 
+  @media (max-width: 480px) {
+    padding: 70px 1rem 2rem;
+  }
+
   // ── Particles ──────────────────────────────────────────────────────────────
   .bg-particles {
     position: absolute;
@@ -464,7 +468,11 @@
     align-items: center;
     justify-content: center;
 
-    @media (max-width: 600px) { width: 280px; height: 280px; }
+    @media (max-width: 600px) { 
+      width: 280px; 
+      height: 280px; 
+      .profile-3d-card { width: 220px; height: 220px; }
+    }
 
     // Orbit rings behind card
     .orbit {

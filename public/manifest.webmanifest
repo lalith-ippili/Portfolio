@@ -1,0 +1,21 @@
+{
+  "name": "Ippili Lalith Kumar | Full Stack Developer",
+  "short_name": "Lalith Kumar",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080818",
+  "theme_color": "#080818",
+  "description": "Portfolio of Ippili Lalith Kumar, Full Stack Developer at VisionariesAI Labs Pvt Ltd.",
+  "icons": [
+    {
+      "src": "/logo1.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo1.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

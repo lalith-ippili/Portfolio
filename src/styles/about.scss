@@ -233,6 +233,15 @@
 
   @media (max-width: 600px) {
     padding: 4rem 1rem;
-    .card { max-width: 100%; min-width: unset; }
+    .card { 
+      max-width: 100%; 
+      min-width: unset; 
+      height: auto;
+      min-height: 400px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 3rem 0.5rem;
   }
 }
