@@ -4,230 +4,510 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import emailjs from 'emailjs-com';
 import Popup from '../components/Popup';
-import { FaSquareGitlab } from "react-icons/fa6";
-import '../styles/Contact.scss';
+import { FaSquareGitlab } from 'react-icons/fa6';
 import {
-  FaEnvelope,
-  FaPhone,
-  FaMapMarkerAlt,
-  FaLinkedin,
-  FaGithub,
-  FaUser,
+  FaArrowRight,
+  FaBriefcase,
   FaBuilding,
+  FaCheckCircle,
   FaComment,
+  FaEnvelope,
+  FaGithub,
+  FaLinkedin,
+  FaMapMarkerAlt,
+  FaPaperPlane,
+  FaPhone,
+  FaUser,
 } from 'react-icons/fa';
+import '../styles/Contact.scss';
 
+const contactDetails = [
+  {
+    label: 'Email',
+    value: 'ippililalith@gmail.com',
+    href: 'mailto:ippililalith@gmail.com',
+    icon: <FaEnvelope />,
+  },
+  {
+    label: 'Phone',
+    value: '+91 95737 73418',
+    href: 'tel:+919573773418',
+    icon: <FaPhone />,
+  },
+  {
+    label: 'Location',
+    value: 'Visakhapatnam, Andhra Pradesh',
+    href: 'https://www.google.com/maps/search/?api=1&query=Visakhapatnam%2C%20Andhra%20Pradesh',
+    icon: <FaMapMarkerAlt />,
+    external: true,
+  },
+];
 
+const socialLinks = [
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/ippili-lalith-kumar/',
+    icon: <FaLinkedin />,
+  },
+  {
+    label: 'GitHub',
+    href: 'https://github.com/lalith-ippili',
+    icon: <FaGithub />,
+  },
+  {
+    label: 'GitLab',
+    href: 'https://gitlab.com/lalith-ippili',
+    icon: <FaSquareGitlab />,
+  },
+];
+
+const fieldAnimation = {
+  hidden: { opacity: 0, y: 18 },
+  visible: (index) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 0.08 * index,
+      duration: 0.45,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  }),
+};
 
 const Contact = () => {
+  const [popup, setPopup] = useState({
+    show: false,
+    message: '',
+    type: '',
+  });
 
-  const [popup, setPopup] = useState({ show: false, message: "", type: "" });
   const formik = useFormik({
     initialValues: {
       name: '',
+      email: '',
       phone: '',
       company: '',
       Message: '',
     },
 
-
     validationSchema: Yup.object({
-      name: Yup.string().required('Name is required'),
+      name: Yup.string()
+        .trim()
+        .min(2, 'Please enter at least 2 characters')
+        .required('Name is required'),
+      email: Yup.string()
+        .trim()
+        .email('Enter a valid email address')
+        .required('Email is required'),
       phone: Yup.string()
-        .matches(/^\d{10}$/, 'Phone number must be 10 digits')
+        .matches(/^[6-9]\d{9}$/, 'Enter a valid 10-digit mobile number')
         .required('Phone is required'),
-      company: Yup.string().required('Company name is required'),
-      Message: Yup.string().required('Message is required'),
+      company: Yup.string()
+        .trim()
+        .required('Company name is required'),
+      Message: Yup.string()
+        .trim()
+        .min(10, 'Please enter at least 10 characters')
+        .required('Message is required'),
     }),
 
-
-    onSubmit: (values, { resetForm }) => {
-      emailjs
-        .send(
-          "service_ofwffi5", // Replace with your service ID
-          "template_q4g6kvk", // Replace with your template ID
+    onSubmit: async (values, { resetForm, setSubmitting }) => {
+      try {
+        await emailjs.send(
+          'service_ofwffi5',
+          'template_q4g6kvk',
           values,
-          "lB3dt3SprkbkFzwzY" // Replace with your user ID
-        )
-        .then(
-          () => {
-            setPopup({
-              show: true,
-              message: "Message sent successfully!",
-              type: "success",
-            });
-            resetForm();
-          },
-          () => {
-            setPopup({
-              show: true,
-              message: "Failed to send message. Please try again later.",
-              type: "error",
-            });
-          }
+          'lB3dt3SprkbkFzwzY'
         );
+
+        setPopup({
+          show: true,
+          message: 'Your message has been sent successfully.',
+          type: 'success',
+        });
+
+        resetForm();
+      } catch (error) {
+        console.error('EmailJS error:', error);
+
+        setPopup({
+          show: true,
+          message: 'Message could not be sent. Please try again.',
+          type: 'error',
+        });
+      } finally {
+        setSubmitting(false);
+      }
     },
   });
 
+  const getFieldState = (fieldName) => {
+    if (formik.touched[fieldName] && formik.errors[fieldName]) {
+      return 'has-error';
+    }
+
+    if (
+      formik.touched[fieldName] &&
+      formik.values[fieldName] &&
+      !formik.errors[fieldName]
+    ) {
+      return 'is-valid';
+    }
+
+    return '';
+  };
+
   return (
-    <motion.section 
-      id="Contact" 
+    <motion.section
+      id="Contact"
       className="contact"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1 }}
-      viewport={{ once: true }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.7 }}
+      viewport={{ once: true, amount: 0.12 }}
     >
-      <div className="moving-background"></div>
-      <div className="contact-container">
-        <h2 className="contact-title">Get in Touch</h2>
-        <p className="contact-subtitle">We’d love to hear from you!</p>
+      <div className="contact__background" aria-hidden="true">
+        <span className="contact__orb contact__orb--one" />
+        <span className="contact__orb contact__orb--two" />
+        <span className="contact__grid" />
+      </div>
 
-        {/* Contact Info Cards */}
-        <div className="contact-info">
-          <div className="contact-card card-1">
-            <div className="contact-icon">
-              <FaEnvelope className="icon" />
-            </div>
-            <h3>Email Us</h3>
-            <p>ippililalith@gmail.com</p>
-          </div>
+      <div className="contact__container">
+        <motion.header
+          className="contact__heading"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55 }}
+          viewport={{ once: true }}
+        >
+          <span className="contact__eyebrow">
+            <FaComment />
+            Contact Me
+          </span>
 
-          <div className="contact-card card-2">
-            <div className="contact-icon">
-              <FaPhone className="icon" />
-            </div>
-            <h3>Call Us</h3>
-            <p>9573773418</p>
-          </div>
+          <h2>Let&apos;s build something meaningful.</h2>
 
-          <div className="contact-card card-3">
-            <div className="contact-icon">
-              <FaMapMarkerAlt className="icon" />
-            </div>
-            <h3>Visit Us</h3>
-            <p>Srikakulam , Andhara Pradesh</p>
-          </div>
-        </div>
+          <p>
+            Have a project, job opportunity, or collaboration in mind? Share the
+            details and I&apos;ll get back to you as soon as possible.
+          </p>
+        </motion.header>
 
-        {/* Contact Form */}
-        <form onSubmit={formik.handleSubmit} className="contact-form">
-          <div className="form-group">
-            <div className="input-icon">
-              <FaUser className="icon" />
-            </div>
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.name}
-            />
-            {formik.touched.name && formik.errors.name ? (
-              <div className="error">{formik.errors.name}</div>
-            ) : null}
-          </div>
-
-          <div className="form-group">
-            <div className="input-icon">
-              <FaPhone className="icon" />
-            </div>
-            <input
-              type="text"
-              name="phone"
-              placeholder="Phone"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.phone}
-            />
-            {formik.touched.phone && formik.errors.phone ? (
-              <div className="error">{formik.errors.phone}</div>
-            ) : null}
-          </div>
-
-          <div className="form-group">
-            <div className="input-icon">
-              <FaBuilding className="icon" />
-            </div>
-            <input
-              type="text"
-              name="company"
-              placeholder="Company Name"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.company}
-            />
-            {formik.touched.company && formik.errors.company ? (
-              <div className="error">{formik.errors.company}</div>
-            ) : null}
-          </div>
-
-          <div className="form-group">
-            <div className="input-icon">
-              <FaComment className="icon" />
-            </div>
-            <textarea
-              name="Message"
-              placeholder="Message"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.Message}
-            />
-            {formik.touched.Message && formik.errors.Message ? (
-              <div className="error">{formik.errors.Message}</div>
-            ) : null}
-          </div>
-
-          <motion.button 
-            type="submit" 
-            className="submit-button"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: 'spring', stiffness: 300 }}
+        <div className="contact-layout">
+          <motion.aside
+            className="contact-panel"
+            initial={{ opacity: 0, x: -35 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: '-60px' }}
           >
-            Send Message
-          </motion.button>
-        </form>
+            <div className="contact-panel__top">
+              <div className="contact-panel__icon">
+                <FaBriefcase />
+              </div>
 
-        {/* Show Popup */}
-        {popup.show && (
-          <Popup
-            message={popup.message}
-            type={popup.type}
-            onClose={() => setPopup({ ...popup, show: false })}
-          />
-        )}
+              <span className="contact-panel__status">
+                <span />
+                Available for opportunities
+              </span>
 
-        {/* Social Links */}
-        <div className="social-links">
-          <a
-            href="https://www.linkedin.com/in/ippili-lalith-kumar/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="social-link"
-          >
-            <FaLinkedin className="social-icon" />
-          </a>
-          <a
-            href="https://github.com/lalith-ippili"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="social-link"
-          >
-            <FaGithub className="social-icon" />
-          </a>
+              <h3>Start a conversation</h3>
 
-          <a
-            href="https://gitlab.com/lalith-ippili"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="social-link"
+              <p>
+                I&apos;m open to full-time roles, product development, freelance
+                projects, and technical collaborations.
+              </p>
+            </div>
+
+            <div className="contact-details">
+              {contactDetails.map((detail) => (
+                <a
+                  key={detail.label}
+                  href={detail.href}
+                  className="contact-detail"
+                  target={detail.external ? '_blank' : undefined}
+                  rel={detail.external ? 'noopener noreferrer' : undefined}
+                >
+                  <span className="contact-detail__icon">{detail.icon}</span>
+
+                  <span className="contact-detail__content">
+                    <small>{detail.label}</small>
+                    <strong>{detail.value}</strong>
+                  </span>
+
+                  <FaArrowRight className="contact-detail__arrow" />
+                </a>
+              ))}
+            </div>
+
+            <div className="contact-panel__footer">
+              <span>Connect with me</span>
+
+              <div className="social-links">
+                {socialLinks.map((social) => (
+                  <motion.a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-link"
+                    aria-label={social.label}
+                    title={social.label}
+                    whileHover={{ y: -4, scale: 1.06 }}
+                    whileTap={{ scale: 0.96 }}
+                  >
+                    {social.icon}
+                  </motion.a>
+                ))}
+              </div>
+            </div>
+          </motion.aside>
+
+          <motion.div
+            className="contact-form-card"
+            initial={{ opacity: 0, x: 35 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: '-60px' }}
           >
-            <FaSquareGitlab className="social-icon" />
-          </a>
+            <div className="contact-form-card__header">
+              <span>Send a message</span>
+              <h3>Tell me about your requirement</h3>
+              <p>Complete the form below and I&apos;ll respond shortly.</p>
+            </div>
+
+            <form
+              onSubmit={formik.handleSubmit}
+              className="contact-form"
+              noValidate
+            >
+              <div className="form-grid">
+                <motion.div
+                  className={`form-field ${getFieldState('name')}`}
+                  custom={0}
+                  variants={fieldAnimation}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  <label htmlFor="contact-name">Your name</label>
+
+                  <div className="input-shell">
+                    <FaUser className="field-icon" />
+
+                    <input
+                      id="contact-name"
+                      type="text"
+                      name="name"
+                      placeholder="Enter your full name"
+                      autoComplete="name"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.name}
+                      aria-invalid={
+                        formik.touched.name && Boolean(formik.errors.name)
+                      }
+                    />
+
+                    {getFieldState('name') === 'is-valid' && (
+                      <FaCheckCircle className="valid-icon" />
+                    )}
+                  </div>
+
+                  {formik.touched.name && formik.errors.name && (
+                    <span className="field-error">{formik.errors.name}</span>
+                  )}
+                </motion.div>
+
+                <motion.div
+                  className={`form-field ${getFieldState('email')}`}
+                  custom={1}
+                  variants={fieldAnimation}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  <label htmlFor="contact-email">Email address</label>
+
+                  <div className="input-shell">
+                    <FaEnvelope className="field-icon" />
+
+                    <input
+                      id="contact-email"
+                      type="email"
+                      name="email"
+                      placeholder="Enter your email address"
+                      autoComplete="email"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.email}
+                      aria-invalid={
+                        formik.touched.email && Boolean(formik.errors.email)
+                      }
+                    />
+
+                    {getFieldState('email') === 'is-valid' && (
+                      <FaCheckCircle className="valid-icon" />
+                    )}
+                  </div>
+
+                  {formik.touched.email && formik.errors.email && (
+                    <span className="field-error">{formik.errors.email}</span>
+                  )}
+                </motion.div>
+
+                <motion.div
+                  className={`form-field ${getFieldState('phone')}`}
+                  custom={2}
+                  variants={fieldAnimation}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  <label htmlFor="contact-phone">Phone number</label>
+
+                  <div className="input-shell">
+                    <FaPhone className="field-icon" />
+
+                    <input
+                      id="contact-phone"
+                      type="tel"
+                      name="phone"
+                      inputMode="numeric"
+                      maxLength={10}
+                      placeholder="Enter 10-digit mobile number"
+                      autoComplete="tel"
+                      onChange={(event) => {
+                        const numericValue = event.target.value.replace(/\D/g, '');
+                        formik.setFieldValue('phone', numericValue);
+                      }}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.phone}
+                      aria-invalid={
+                        formik.touched.phone && Boolean(formik.errors.phone)
+                      }
+                    />
+
+                    {getFieldState('phone') === 'is-valid' && (
+                      <FaCheckCircle className="valid-icon" />
+                    )}
+                  </div>
+
+                  {formik.touched.phone && formik.errors.phone && (
+                    <span className="field-error">{formik.errors.phone}</span>
+                  )}
+                </motion.div>
+
+                <motion.div
+                  className={`form-field ${getFieldState('company')}`}
+                  custom={3}
+                  variants={fieldAnimation}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  <label htmlFor="contact-company">Company name</label>
+
+                  <div className="input-shell">
+                    <FaBuilding className="field-icon" />
+
+                    <input
+                      id="contact-company"
+                      type="text"
+                      name="company"
+                      placeholder="Enter company or organization"
+                      autoComplete="organization"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.company}
+                      aria-invalid={
+                        formik.touched.company && Boolean(formik.errors.company)
+                      }
+                    />
+
+                    {getFieldState('company') === 'is-valid' && (
+                      <FaCheckCircle className="valid-icon" />
+                    )}
+                  </div>
+
+                  {formik.touched.company && formik.errors.company && (
+                    <span className="field-error">{formik.errors.company}</span>
+                  )}
+                </motion.div>
+              </div>
+
+              <motion.div
+                className={`form-field form-field--message ${getFieldState(
+                  'Message'
+                )}`}
+                custom={4}
+                variants={fieldAnimation}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                <label htmlFor="contact-message">Project or opportunity details</label>
+
+                <div className="input-shell input-shell--textarea">
+                  <FaComment className="field-icon" />
+
+                  <textarea
+                    id="contact-message"
+                    name="Message"
+                    placeholder="Describe your requirement, timeline, and expected outcome..."
+                    rows={6}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.Message}
+                    aria-invalid={
+                      formik.touched.Message && Boolean(formik.errors.Message)
+                    }
+                  />
+
+                  {getFieldState('Message') === 'is-valid' && (
+                    <FaCheckCircle className="valid-icon" />
+                  )}
+                </div>
+
+                <div className="message-meta">
+                  <span>
+                    {formik.touched.Message && formik.errors.Message
+                      ? formik.errors.Message
+                      : 'Please include enough details for a useful response.'}
+                  </span>
+                  <span>{formik.values.Message.length} characters</span>
+                </div>
+              </motion.div>
+
+              <motion.button
+                type="submit"
+                className="submit-button"
+                disabled={formik.isSubmitting}
+                whileHover={formik.isSubmitting ? undefined : { y: -3 }}
+                whileTap={formik.isSubmitting ? undefined : { scale: 0.98 }}
+              >
+                <span>
+                  {formik.isSubmitting ? 'Sending message...' : 'Send Message'}
+                </span>
+                <FaPaperPlane />
+              </motion.button>
+            </form>
+          </motion.div>
         </div>
       </div>
+
+      {popup.show && (
+        <Popup
+          message={popup.message}
+          type={popup.type}
+          onClose={() =>
+            setPopup((currentPopup) => ({
+              ...currentPopup,
+              show: false,
+            }))
+          }
+        />
+      )}
     </motion.section>
   );
 };

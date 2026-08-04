@@ -428,26 +428,85 @@
         }
       }
 
-      .btn-whatsapp {
+      .btn-resume {
+        position: relative;
         display: inline-flex;
         align-items: center;
-        gap: 7px;
-        background: linear-gradient(135deg, #25d366, #128c7e);
-        color: #fff;
-        border: none;
+        justify-content: center;
+        gap: 8px;
+        min-width: 178px;
         padding: 13px 22px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        font-family: 'Outfit', sans-serif;
+        overflow: hidden;
+        border: 1.5px solid rgba(118, 92, 255, 0.48);
         border-radius: 50px;
+        color: #f4f2ff;
+        background:
+          linear-gradient(135deg, rgba(118, 92, 255, 0.2), rgba(0, 221, 235, 0.11)),
+          rgba(255, 255, 255, 0.04);
+        box-shadow:
+          0 8px 24px rgba(91, 66, 243, 0.22),
+          inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
         cursor: pointer;
         text-decoration: none;
-        transition: all 0.3s ease;
-        box-shadow: 0 6px 20px rgba(37,211,102,0.35);
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        transition:
+          border-color 0.3s ease,
+          color 0.3s ease,
+          background 0.3s ease,
+          box-shadow 0.3s ease;
+
+        &::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            110deg,
+            transparent 28%,
+            rgba(255, 255, 255, 0.18) 48%,
+            transparent 68%
+          );
+          transform: translateX(-120%);
+          transition: transform 0.65s ease;
+        }
+
+        svg,
+        span {
+          position: relative;
+          z-index: 1;
+        }
+
+        svg {
+          flex-shrink: 0;
+          color: #7eeef7;
+          transition: transform 0.3s ease;
+        }
 
         &:hover {
-          box-shadow: 0 12px 35px rgba(37,211,102,0.55);
-          transform: translateY(-2px);
+          border-color: #00ddeb;
+          color: #ffffff;
+          background:
+            linear-gradient(135deg, rgba(91, 66, 243, 0.3), rgba(0, 221, 235, 0.17)),
+            rgba(255, 255, 255, 0.06);
+          box-shadow:
+            0 13px 36px rgba(91, 66, 243, 0.32),
+            0 0 28px rgba(0, 221, 235, 0.13);
+
+          &::before {
+            transform: translateX(120%);
+          }
+
+          svg {
+            transform: translateY(2px);
+          }
+        }
+
+        &:focus-visible {
+          outline: 3px solid rgba(0, 221, 235, 0.28);
+          outline-offset: 4px;
         }
       }
     }
