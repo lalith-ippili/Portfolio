@@ -113,12 +113,25 @@ const Contact = () => {
 
     onSubmit: async (values, { resetForm, setSubmitting }) => {
       try {
-        await emailjs.send(
-          'service_ofwffi5',
+        // These variable names must exactly match the variables
+        // configured in the EmailJS template.
+        const templateParams = {
+          to_name: 'Lalith',
+          name: values.name.trim(),
+          email: values.email.trim(),
+          phone: values.phone.trim(),
+          company: values.company.trim(),
+          Message: values.Message.trim(),
+        };
+
+        const response = await emailjs.send(
+          'service_wra7x15',
           'template_q4g6kvk',
-          values,
+          templateParams,
           'lB3dt3SprkbkFzwzY'
         );
+
+        console.log('EmailJS success:', response.status, response.text);
 
         setPopup({
           show: true,
@@ -132,7 +145,10 @@ const Contact = () => {
 
         setPopup({
           show: true,
-          message: 'Message could not be sent. Please try again.',
+          message:
+            error?.text ||
+            error?.message ||
+            'Message could not be sent. Please try again.',
           type: 'error',
         });
       } finally {
