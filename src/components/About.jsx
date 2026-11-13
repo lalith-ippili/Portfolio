@@ -24,13 +24,14 @@ const experienceData = [
     status: 'Current Role',
     icon: <FaBriefcase />,
     summary:
-      'Building scalable web and mobile products across frontend, backend, cloud, and application deployment workflows.',
+      'Building scalable web and mobile products across frontend, backend, cloud, and application deployment workflows, including AI-powered exam preparation and EdTech platforms.',
     achievements: [
       'Architect responsive, scalable cross-platform interfaces using React.js, Next.js, TypeScript, and React Native.',
       'Develop robust backend services using Node.js and Django while managing MongoDB, PostgreSQL, and SQL data flows.',
       'Improve performance through lazy loading, code splitting, reusable component architecture, and render optimization.',
       'Collaborate with cross-functional Agile teams, conduct code reviews, and refactor production code for maintainability.',
       'Support mobile application releases and deployment workflows for Google Play Store and Apple App Store.',
+      'Engineered and launched Bodhitha (bodhitha.com), an AI-powered competitive exam prep platform for GATE and Govt aspirants with Mock Tests, Roadmap Builder, Boss Battles, and AI Study Planner.',
     ],
     technologies: [
       'React.js',
@@ -206,11 +207,7 @@ const About = () => {
               <span className="career-overview__label">Professional Summary</span>
               <h3>Building scalable digital products with measurable impact.</h3>
               <p>
-                Result-oriented Associate Software Developer with 3 years of experience
-                building scalable web and mobile applications. Strong in the MERN stack,
-                React Native, TypeScript, Redux Toolkit, Django, and SQL-based systems.
-                Experienced in translating business requirements into maintainable
-                technical solutions within Agile environments.
+                Result-oriented Associate Software Developer with 3+ years of experience building scalable web and mobile applications. Strong in the MERN stack, React Native, TypeScript, Redux Toolkit, Django, and SQL-based systems. Delivered impactful products including an AI-powered exam prep platform (Bodhitha), EdTech LMS, and enterprise ERP systems. Experienced in translating business requirements into maintainable technical solutions within Agile environments.
               </p>
             </div>
           </motion.article>

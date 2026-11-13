@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import '../styles/home.scss';
 import logo1Photo from '../assets/logo1.png';
-import resumeFile from '../assets/Lalith_kumar.pdf';
+import resumeFile from '../assets/Lalith_Ippili.pdf';
 
 const Home = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
